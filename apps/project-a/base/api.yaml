@@ -16,21 +16,12 @@ spec:
     spec:
       containers:
         - name: api
-          image: nginx:latest
+          image: nginxinc/nginx-unprivileged:stable
+          imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 80
+            - containerPort: 8080
           securityContext:
-            runAsNonRoot: true
-            runAsUser: 101
             allowPrivilegeEscalation: false
-            capabilities:
-              add:
-                - NET_BIND_SERVICE
-          volumeMounts:
-            - name: nginx-cache
-              mountPath: /var/cache/nginx
-            - name: nginx-run
-              mountPath: /var/run
           resources:
             requests:
               cpu: "100m"
@@ -38,11 +29,7 @@ spec:
             limits:
               cpu: "200m"
               memory: "256Mi"
-      volumes:
-        - name: nginx-cache
-          emptyDir: {}
-        - name: nginx-run
-          emptyDir: {}
+
 ---
 apiVersion: v1
 kind: Service
@@ -55,6 +42,5 @@ spec:
     app: api
   ports:
     - port: 80
-      targetPort: 80
+      targetPort: 8080
   type: ClusterIP
-
