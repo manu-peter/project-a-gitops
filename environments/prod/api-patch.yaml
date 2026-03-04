@@ -1,9 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api
+  name: api-prod
 spec:
-  replicas: 3
   template:
     spec:
       containers:
@@ -20,3 +19,10 @@ spec:
               port: 8080
             initialDelaySeconds: 10
             periodSeconds: 20
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "300m"
+              memory: "256Mi"
