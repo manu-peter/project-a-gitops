@@ -10,7 +10,5 @@ replicas:
   - name: api
     count: 3
 
-images:
-  - name: yourrepo/api
-    newTag: prod
-
+patches:
+  - path: api-resources-patch.yaml
