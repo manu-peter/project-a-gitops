@@ -11,4 +11,4 @@ replicas:
     count: 3
 
 patches:
-  - path: api-resources-patch.yaml
+  - path: api-patch.yaml
